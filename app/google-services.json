@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "789162943634",
+    "firebase_url": "https://telegram-5b102-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "telegram-5b102",
+    "storage_bucket": "telegram-5b102.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789162943634:android:f61e52232bb1a926b0b24b",
+        "android_client_info": {
+          "package_name": "com.libertosforever.telegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789162943634-kcgckfmk9c5s7rgoh5co4o1t3h2hq5kq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.libertosforever.telegram",
+            "certificate_hash": "149ffea74a99aee10b8b3ab4f78962ecffacc3a0"
+          }
+        },
+        {
+          "client_id": "789162943634-8ga3cofvg99sos9dqlfad7lfven7rpdd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKl7yJAIQ5ekdwWx2LvhxM5PJkGDoxD5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789162943634-8ga3cofvg99sos9dqlfad7lfven7rpdd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
