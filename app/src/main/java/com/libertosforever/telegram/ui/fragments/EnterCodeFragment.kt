@@ -50,13 +50,17 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
                 dateMap[CHILD_PHONE] = phoneNumber
                 dateMap[CHILD_USERNAME] = uid
 
-                REF_DATABASE_ROOT_USERS.child(uid).updateChildren(dateMap)
-                    .addOnCompleteListener { task2 ->
-                        if (task.isSuccessful) {
-                            showToast("Welcome")
-                            (activity as RegisterActivity).replaceActivity(MainActivity())
-
-                        } else showToast(task2.exception?.message.toString())
+                REF_DATABASE_ROOT_PHONES
+                    .child(phoneNumber)
+                    .setValue(uid)
+                    .addOnFailureListener { showToast(it.message.toString()) }
+                    .addOnSuccessListener {
+                        REF_DATABASE_ROOT_USERS.child(uid).updateChildren(dateMap)
+                            .addOnSuccessListener {
+                                showToast("Welcome")
+                                (activity as RegisterActivity).replaceActivity(MainActivity())
+                            }
+                            .addOnFailureListener { showToast(it.message.toString()) }
                     }
             } else showToast(task.exception?.message.toString())
         }
