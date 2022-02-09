@@ -9,10 +9,12 @@
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ripple_effect.xml" value="0.2526041666666667" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/contact_item.xml" value="0.264" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_change_bio.xml" value="0.1" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_change_name.xml" value="0.264" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_change_user_name.xml" value="0.23645833333333333" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_chats.xml" value="0.23645833333333333" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_contacts.xml" value="0.23645833333333333" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_enter_code.xml" value="0.4" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_enter_phone_number.xml" value="0.23645833333333333" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_settings.xml" value="0.264" />
@@ -21,7 +23,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

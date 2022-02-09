@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.provider.ContactsContract
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -127,3 +128,6 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
         }
     })
 }
+
+fun DataSnapshot.getCommonModel(): CommonModel =
+    this.getValue(CommonModel :: class.java) ?: CommonModel()
