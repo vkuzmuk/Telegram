@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable-v24/ripple_effect.xml" value="0.2526041666666667" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/bg_receive_message.xml" value="0.1585" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/bg_user_message.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/header.xml" value="0.2703125" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_confirm_change.xml" value="0.2526041666666667" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_send.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ripple_effect.xml" value="0.2526041666666667" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
@@ -18,6 +21,9 @@
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_enter_code.xml" value="0.4" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_enter_phone_number.xml" value="0.23645833333333333" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_settings.xml" value="0.264" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_single_chat.xml" value="0.264" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/message_item.xml" value="0.4" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/toolbar_info.xml" value="0.264" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/menu/settings_action_menu.xml" value="0.4" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/menu/settings_menu_confirm.xml" value="0.4" />
       </map>

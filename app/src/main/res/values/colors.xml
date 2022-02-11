@@ -28,5 +28,6 @@
     <color name="material_drawer_selected_text">#2196F3</color>
     <color name="material_drawer_header_selection_text">@color/white</color>
     <color name="material_drawer_header_selection_subtext">@color/light_grey</color>
+    <color name="message_background_blue">#35A4DF</color>
 
 </resources>
