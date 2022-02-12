@@ -1,23 +1,17 @@
 package com.libertosforever.telegram
 
 import AppDrawer
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.libertosforever.telegram.activities.RegisterActivity
 import com.libertosforever.telegram.databinding.ActivityMainBinding
-import com.libertosforever.telegram.models.User
 import com.libertosforever.telegram.ui.fragments.ChatsFragment
 import com.libertosforever.telegram.utilits.*
-import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
 
