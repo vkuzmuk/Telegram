@@ -7,12 +7,12 @@ import android.provider.ContactsContract
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.libertosforever.telegram.MainActivity
 import com.libertosforever.telegram.R
+import com.libertosforever.telegram.database.updatePhonesToDatabase
 import com.libertosforever.telegram.models.CommonModel
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -20,26 +20,18 @@ fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_LONG).show()
 }
 
-fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
-    val intent = Intent(this, activity :: class.java)
-    startActivity(intent)
-    this.finish()
+fun restartActivity() {
+    val intent = Intent(APP_ACTIVITY, MainActivity :: class.java)
+    APP_ACTIVITY.startActivity(intent)
+    APP_ACTIVITY.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, addStack: Boolean = true) {
-        supportFragmentManager   // Implement later on the acitivities back stack
+fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
+        APP_ACTIVITY.supportFragmentManager   // Implement later on the activities back stack
             .beginTransaction()
             .addToBackStack(null)
             .replace(R.id.data_container, fragment)
             .commit()
-}
-
-fun Fragment.replaceFragment(fragment: Fragment) {
-    this.activity?.supportFragmentManager
-        ?.beginTransaction()
-        ?.addToBackStack(null)
-        ?.replace(R.id.data_container, fragment)
-        ?.commit()
 }
 
 fun hideKeyboard() {

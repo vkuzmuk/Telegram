@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.fragments
+package com.libertosforever.telegram.ui.fragments.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,14 +10,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
-import com.libertosforever.telegram.MainActivity
 import com.libertosforever.telegram.R
-import com.libertosforever.telegram.activities.RegisterActivity
+import com.libertosforever.telegram.database.AUTH
 import com.libertosforever.telegram.databinding.FragmentEnterPhoneNumberBinding
-import com.libertosforever.telegram.utilits.AUTH
-import com.libertosforever.telegram.utilits.replaceActivity
-import com.libertosforever.telegram.utilits.replaceFragment
-import com.libertosforever.telegram.utilits.showToast
+import com.libertosforever.telegram.utilits.*
 import java.util.concurrent.TimeUnit
 
 class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) {
@@ -43,7 +39,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                 AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         showToast("Welcome")
-                        (activity as RegisterActivity).replaceActivity(MainActivity())
+                        restartActivity()
                     } else showToast(task.exception?.message.toString())
                 }
             }
@@ -75,7 +71,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
         val options = PhoneAuthOptions
             .newBuilder(FirebaseAuth.getInstance())
             .setPhoneNumber(mPhoneNumber)
-            .setActivity(activity as RegisterActivity)
+            .setActivity(APP_ACTIVITY)
             .setTimeout(60L, TimeUnit.SECONDS)
             .setCallbacks(mCallback)
             .build()

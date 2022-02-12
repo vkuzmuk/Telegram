@@ -3,6 +3,7 @@ package com.libertosforever.telegram.ui.fragments
 import android.os.Bundle
 import android.view.*
 import com.libertosforever.telegram.R
+import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentChangeNameBinding
 import com.libertosforever.telegram.utilits.*
 
@@ -38,16 +39,7 @@ class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
             showToast(getString(R.string.settings_toast_name_is_empty))
         } else {
             val fullName = "$name $surname"
-            REF_DATABASE_ROOT_USERS.child(CURRENT_UID).child(CHILD_FULL_NAME).setValue(fullName)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        showToast(getString(R.string.toast_data_update))
-                        USER.fullname = fullName
-                        APP_ACTIVITY.mAppDrawer.updateHeader()
-                        activity?.supportFragmentManager?.popBackStack()
-
-                    }
-                }
+            setNameToDatabase(fullName)
         }
     }
 }

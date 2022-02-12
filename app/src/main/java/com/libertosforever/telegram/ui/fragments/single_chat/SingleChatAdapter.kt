@@ -8,10 +8,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.models.CommonModel
-import com.libertosforever.telegram.utilits.CURRENT_UID
+import com.libertosforever.telegram.database.CURRENT_UID
 import com.libertosforever.telegram.utilits.asTime
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SingleChatAdapter: RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
     private var mListMessagesCash = emptyList<CommonModel>()

@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.libertosforever.telegram.activities.RegisterActivity
+import com.libertosforever.telegram.database.AUTH
+import com.libertosforever.telegram.database.initFirebase
+import com.libertosforever.telegram.database.initUser
 import com.libertosforever.telegram.databinding.ActivityMainBinding
-import com.libertosforever.telegram.ui.fragments.ChatsFragment
+import com.libertosforever.telegram.ui.fragments.MainFragment
+import com.libertosforever.telegram.ui.fragments.register.EnterPhoneNumberFragment
 import com.libertosforever.telegram.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityMainBinding
@@ -37,12 +39,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
+        setSupportActionBar(mToolBar)
         if (AUTH.currentUser != null) {
-            setSupportActionBar(mToolBar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment())
+            replaceFragment(MainFragment())
         } else {
-            replaceActivity(RegisterActivity())
+            replaceFragment(EnterPhoneNumberFragment())
         }
 
     }

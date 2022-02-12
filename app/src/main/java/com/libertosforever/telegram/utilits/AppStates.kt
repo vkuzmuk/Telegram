@@ -1,5 +1,7 @@
 package com.libertosforever.telegram.utilits
 
+import com.libertosforever.telegram.database.*
+
 enum class AppStates(val state: String) {
     ONLINE("в сети"),
     OFFLINE("был недавно"),

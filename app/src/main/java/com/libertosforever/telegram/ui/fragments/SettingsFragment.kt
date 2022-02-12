@@ -2,16 +2,13 @@ package com.libertosforever.telegram.ui.fragments
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.StorageReference
 import com.libertosforever.telegram.R
-import com.libertosforever.telegram.activities.RegisterActivity
+import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentSettingsBinding
 import com.libertosforever.telegram.utilits.*
-import com.squareup.picasso.Picasso
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 
@@ -77,7 +74,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             R.id.settings_menu_exit -> {
                 AppStates.updateState(AppStates.OFFLINE)
                 AUTH.signOut()
-                (APP_ACTIVITY).replaceActivity(RegisterActivity())
+                restartActivity()
             }
             R.id.settings_menu_change_name -> {
                 replaceFragment(ChangeNameFragment())

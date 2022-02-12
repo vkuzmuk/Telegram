@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.utilits
+package com.libertosforever.telegram.database
 
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
@@ -9,8 +9,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import com.libertosforever.telegram.R
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
+import com.libertosforever.telegram.utilits.APP_ACTIVITY
+import com.libertosforever.telegram.utilits.AppValueEventListener
+import com.libertosforever.telegram.utilits.showToast
 
 lateinit var AUTH: FirebaseAuth
 lateinit var REF_STORAGE_ROOT: StorageReference
@@ -146,3 +150,56 @@ fun sendMessage(message: String, receivingUserId: String, typeText: String, func
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
+fun updateCurrentUsername(newUserName: String) {
+    REF_DATABASE_ROOT_USERS
+        .child(CURRENT_UID)
+        .child(CHILD_USERNAME)
+        .setValue(newUserName)
+        .addOnCompleteListener {
+            if (it.isSuccessful) {
+                showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+                deleteOldUsername(newUserName)
+            } else {
+                showToast(it.exception?.message.toString())
+            }
+        }
+}
+
+private fun deleteOldUsername(newUserName: String) {
+    REF_DATABASE_ROOT_USERNAMES
+        .child(USER.username)
+        .removeValue()
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+            USER.username = newUserName
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun setBioToDatabase(newBio: String) {
+    REF_DATABASE_ROOT_USERS
+        .child(CURRENT_UID)
+        .child(CHILD_BIO)
+        .setValue(newBio)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            USER.bio = newBio
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun setNameToDatabase(fullName: String) {
+    REF_DATABASE_ROOT_USERS
+        .child(CURRENT_UID)
+        .child(CHILD_FULL_NAME)
+        .setValue(fullName)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            USER.fullname = fullName
+            APP_ACTIVITY.mAppDrawer.updateHeader()
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+
+

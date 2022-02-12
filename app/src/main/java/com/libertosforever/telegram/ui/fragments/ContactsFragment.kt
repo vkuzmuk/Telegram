@@ -10,6 +10,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.libertosforever.telegram.R
+import com.libertosforever.telegram.database.CURRENT_UID
+import com.libertosforever.telegram.database.REF_DATABASE_ROOT_PHONES_CONTACTS
+import com.libertosforever.telegram.database.REF_DATABASE_ROOT_USERS
+import com.libertosforever.telegram.database.getCommonModel
 import com.libertosforever.telegram.databinding.FragmentContactsBinding
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.utilits.*

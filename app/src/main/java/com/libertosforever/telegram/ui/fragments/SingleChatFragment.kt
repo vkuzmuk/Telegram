@@ -9,12 +9,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DatabaseReference
 import com.libertosforever.telegram.R
+import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentSingleChatBinding
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.ui.fragments.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
-import io.reactivex.rxjava3.core.Single
 
 class SingleChatFragment(private val contact: CommonModel) :
     BaseFragment(R.layout.fragment_single_chat) {
