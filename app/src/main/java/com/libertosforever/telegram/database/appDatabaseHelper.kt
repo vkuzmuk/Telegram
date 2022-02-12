@@ -125,10 +125,10 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
 }
 
 fun DataSnapshot.getCommonModel(): CommonModel =
-    this.getValue(CommonModel::class.java) ?: CommonModel()
+    this.getValue(CommonModel :: class.java) ?: CommonModel()
 
 fun DataSnapshot.getUserModel(): UserModel =
-    this.getValue(UserModel::class.java) ?: UserModel()
+    this.getValue(UserModel :: class.java) ?: UserModel()
 
 fun sendMessage(message: String, receivingUserId: String, typeText: String, function: () -> Unit) {
     val refDialogUser = "$CURRENT_UID/$receivingUserId"

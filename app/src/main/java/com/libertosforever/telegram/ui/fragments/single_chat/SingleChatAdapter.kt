@@ -5,14 +5,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.database.CURRENT_UID
+import com.libertosforever.telegram.utilits.DiffUtilCallback
 import com.libertosforever.telegram.utilits.asTime
 
 class SingleChatAdapter: RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
-    private var mListMessagesCash = emptyList<CommonModel>()
+    private var mListMessagesCache = emptyList<CommonModel>()
+    private lateinit var mDiffResult: DiffUtil.DiffResult
 
     class SingleChatHolder(view: View): RecyclerView.ViewHolder(view) {
         // user sent message
@@ -34,25 +37,35 @@ class SingleChatAdapter: RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder
     }
 
     override fun onBindViewHolder(holder: SingleChatHolder, position: Int) {
-        if (mListMessagesCash[position].from == CURRENT_UID) {
+        if (mListMessagesCache[position].from == CURRENT_UID) {
             holder.blockUserMessage.visibility = View.VISIBLE
             holder.blockReceivedMessage.visibility = View.GONE
-            holder.chatUserMessage.text = mListMessagesCash[position].text
-            holder.chatUserMessageTime.text = mListMessagesCash[position].timeStamp.toString().asTime()
+            holder.chatUserMessage.text = mListMessagesCache[position].text
+            holder.chatUserMessageTime.text = mListMessagesCache[position].timeStamp.toString().asTime()
         } else {
             holder.blockUserMessage.visibility = View.GONE
             holder.blockReceivedMessage.visibility = View.VISIBLE
-            holder.chatReceivedMessage.text = mListMessagesCash[position].text
-            holder.chatReceivedMessageTime.text = mListMessagesCash[position].timeStamp.toString().asTime()
+            holder.chatReceivedMessage.text = mListMessagesCache[position].text
+            holder.chatReceivedMessageTime.text = mListMessagesCache[position].timeStamp.toString().asTime()
         }
     }
 
+    override fun getItemCount(): Int = mListMessagesCache.size
+
     fun setList(list: List<CommonModel>) {
-        mListMessagesCash = list
-        notifyDataSetChanged()
+        mDiffResult.dispatchUpdatesTo(this)
+        mListMessagesCache = list
     }
 
-    override fun getItemCount(): Int = mListMessagesCash.size
+    fun addItem(item: CommonModel) {
+        val newList = mutableListOf<CommonModel>()
+        newList.addAll(mListMessagesCache)
+        newList.add(item)
+        mDiffResult = DiffUtil.calculateDiff(DiffUtilCallback(mListMessagesCache, newList))
+        mDiffResult.dispatchUpdatesTo(this)
+        mListMessagesCache = newList
+    }
+
 }
 
 
