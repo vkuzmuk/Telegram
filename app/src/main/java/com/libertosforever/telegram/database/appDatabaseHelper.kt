@@ -14,10 +14,12 @@ import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.utilits.APP_ACTIVITY
 import com.libertosforever.telegram.utilits.AppValueEventListener
+import com.libertosforever.telegram.utilits.TYPE_MESSAGE_IMAGE
 import com.libertosforever.telegram.utilits.showToast
 
 lateinit var AUTH: FirebaseAuth
-lateinit var REF_STORAGE_ROOT: StorageReference
+lateinit var REF_STORAGE_ROOT_PROFILE_IMAGE: StorageReference
+lateinit var REF_STORAGE_ROOT_MESSAGES_IMAGE: StorageReference
 lateinit var USER: UserModel
 lateinit var CURRENT_UID: String
 
@@ -35,6 +37,7 @@ const val NODE_PHONES = "phones"
 const val NODE_PHONES_CONTACTS = "phones_contacts"
 const val NODE_MESSAGES = "messages"
 const val FOLDER_PROFILE_IMAGE = "profile_image"
+const val FOLDER_MESSAGES_IMAGE = "message_image"
 
 const val CHILD_ID = "id"
 const val CHILD_PHONE = "phone"
@@ -47,6 +50,7 @@ const val CHILD_TEXT = "text"
 const val CHILD_TYPE = "type"
 const val CHILD_FROM = "from"
 const val CHILD_TIMESTAMP = "timeStamp"
+const val CHILD_FILE_URL = "fileUrl"
 
 
 fun initFirebase() {
@@ -60,7 +64,8 @@ fun initFirebase() {
     REF_DATABASE_ROOT_PHONES_CONTACTS = database.getReference(NODE_PHONES_CONTACTS)
     REF_DATABASE_ROOT_MESSAGES = database.getReference(NODE_MESSAGES)
 
-    REF_STORAGE_ROOT = Firebase.storage.getReference(FOLDER_PROFILE_IMAGE)
+    REF_STORAGE_ROOT_PROFILE_IMAGE = Firebase.storage.getReference(FOLDER_PROFILE_IMAGE)
+    REF_STORAGE_ROOT_MESSAGES_IMAGE = Firebase.storage.getReference(FOLDER_MESSAGES_IMAGE)
 
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
@@ -125,10 +130,10 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
 }
 
 fun DataSnapshot.getCommonModel(): CommonModel =
-    this.getValue(CommonModel :: class.java) ?: CommonModel()
+    this.getValue(CommonModel::class.java) ?: CommonModel()
 
 fun DataSnapshot.getUserModel(): UserModel =
-    this.getValue(UserModel :: class.java) ?: UserModel()
+    this.getValue(UserModel::class.java) ?: UserModel()
 
 fun sendMessage(message: String, receivingUserId: String, typeText: String, function: () -> Unit) {
     val refDialogUser = "$CURRENT_UID/$receivingUserId"
@@ -139,6 +144,7 @@ fun sendMessage(message: String, receivingUserId: String, typeText: String, func
     mapMessage[CHILD_FROM] = CURRENT_UID
     mapMessage[CHILD_TYPE] = typeText
     mapMessage[CHILD_TEXT] = message
+    mapMessage[CHILD_ID] = messageKey.toString()
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
 
     val mapDialog = hashMapOf<String, Any>()
@@ -202,4 +208,30 @@ fun setNameToDatabase(fullName: String) {
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
 
+fun sendMessageAsImage(receivingUserId: String, imageUrl: String, messageKey: String) {
+    val refDialogUser = "$CURRENT_UID/$receivingUserId"
+    val refDialogReceivingUser = "$receivingUserId/$CURRENT_UID"
 
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_FROM] = CURRENT_UID
+    mapMessage[CHILD_TYPE] = TYPE_MESSAGE_IMAGE
+    mapMessage[CHILD_ID] = messageKey
+    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapMessage[CHILD_FILE_URL] = imageUrl
+
+    val mapDialog = hashMapOf<String, Any>()
+    mapDialog["$refDialogUser/$messageKey"] = mapMessage
+    mapDialog["$refDialogReceivingUser/$messageKey"] = mapMessage
+
+    REF_DATABASE_ROOT_MESSAGES
+        .updateChildren(mapDialog)
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun getMessageKey(id: String) = REF_DATABASE_ROOT_MESSAGES
+    .child(CURRENT_UID)
+    .child(id).push().key.toString()
+
+fun uploadFileToStorage(uri: Uri, messageKey: String) {
+    showToast("Record OK")
+}

@@ -1,16 +1,21 @@
 package com.libertosforever.telegram.ui.fragments
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.database.DatabaseReference
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.database.*
@@ -19,6 +24,10 @@ import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.ui.fragments.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
+import com.theartofdev.edmodo.cropper.CropImage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class SingleChatFragment(private val contact: CommonModel) :
     BaseFragment(R.layout.fragment_single_chat) {
@@ -30,19 +39,25 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mMessagesListener: AppChildEventListener
-    private var mCountMessages = 10
+    private var mCountMessages = 15
     private var mIsScrolling = false
     private var mSmoothScrollToPosition = true
-    private var mListListeners = mutableListOf<AppChildEventListener>()
+    private lateinit var mAppVoiceRecorder: AppVoiceRecorder
 
     // for initializing
     private lateinit var mToolBarInfo: View
     private lateinit var toolBarImage: ImageView
     private lateinit var toolbarChatFullname: TextView
     private lateinit var toolbarChatStatus: TextView
+    private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var mLayoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initView()
+    }
+
+    private fun initView() {
         mToolBarInfo = APP_ACTIVITY.findViewById(R.id.toolbar_info)
         toolBarImage = APP_ACTIVITY.findViewById(R.id.toolbar_chat_image)
         toolbarChatFullname = APP_ACTIVITY.findViewById(R.id.toolbar_chat_fullname)
@@ -59,25 +74,86 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     override fun onResume() {
         super.onResume()
+        initFields()
         initToolbar()
         initRecycleView()
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initFields() {
+        mAppVoiceRecorder = AppVoiceRecorder()
+        mSwipeRefreshLayout = APP_ACTIVITY.findViewById(R.id.chat_swipe_refresh)
+        mLayoutManager = LinearLayoutManager(this.context)
+        mBinding.chatInputMessage.addTextChangedListener(AppTextWatcher {
+            val string = mBinding.chatInputMessage.text.toString()
+            if (string.isEmpty() || string == "Запись...") {
+                mBinding.chatBtnSendMessage.visibility = View.GONE
+                mBinding.chatBtnAttach.visibility = View.VISIBLE
+                mBinding.chatBtnVoice.visibility = View.VISIBLE
+            } else {
+                mBinding.chatBtnSendMessage.visibility = View.VISIBLE
+                mBinding.chatBtnAttach.visibility = View.GONE
+                mBinding.chatBtnVoice.visibility = View.GONE
+            }
+        })
+        mBinding.chatBtnAttach.setOnClickListener { attachFile() }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            mBinding.chatBtnVoice.setOnTouchListener { view, motionEvent ->
+                if (checkPermissions(RECORD_AUDIO)) {
+                    if (motionEvent.action == MotionEvent.ACTION_DOWN) {
+                        mBinding.chatInputMessage.setText("Запись...")
+                        mBinding.chatBtnVoice.setColorFilter(ContextCompat.getColor(APP_ACTIVITY, R.color.blue_main))
+                        val messageKey = getMessageKey(contact.id)
+                        mAppVoiceRecorder.startRecord(messageKey)
+                    } else
+                        if (motionEvent.action == MotionEvent.ACTION_UP) {
+                            mBinding.chatInputMessage.setText("")
+                            mBinding.chatBtnVoice.colorFilter = null
+                            mAppVoiceRecorder.stopRecord() { file, messageKey ->
+                                uploadFileToStorage(Uri.fromFile(file), messageKey)
+                            }
+                        }
+                }
+                true
+            }
+        }
+    }
+
+    private fun attachFile() {
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setRequestedSize(250, 250)
+            .start(APP_ACTIVITY, this)
     }
 
     private fun initRecycleView() {
         mRecyclerView = mBinding.chatRecyclerView
         mAdapter = SingleChatAdapter()
+
         mRefMessages = REF_DATABASE_ROOT_MESSAGES
             .child(CURRENT_UID)
             .child(contact.id)
+
         mRecyclerView.adapter = mAdapter
+        mRecyclerView.setHasFixedSize(true)
+        mRecyclerView.isNestedScrollingEnabled = false
+        mRecyclerView.layoutManager = mLayoutManager
+
         mMessagesListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel())
+            val message = it.getCommonModel()
+
             if (mSmoothScrollToPosition) {
-                mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+                mAdapter.addItemToBottom(message) {
+                    mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
+                }
+            } else {
+                mAdapter.addItemToTop(message) {
+                    mSwipeRefreshLayout.isRefreshing = false
+                }
             }
         }
         mRefMessages.limitToLast(mCountMessages).addChildEventListener(mMessagesListener)
-        mListListeners.add(mMessagesListener)
 
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
@@ -87,21 +163,24 @@ class SingleChatFragment(private val contact: CommonModel) :
                     mIsScrolling = true
                 }
             }
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (mIsScrolling && dy < 0) {
+                println(mRecyclerView.recycledViewPool.getRecycledViewCount(0))
+                if (mIsScrolling && dy < 0 && mLayoutManager.findFirstVisibleItemPosition() <= 3) {
                     updateData()
                 }
             }
         })
+        mSwipeRefreshLayout.setOnRefreshListener { updateData() }
     }
 
     private fun updateData() {
         mSmoothScrollToPosition = false
         mIsScrolling = false
         mCountMessages += 10
+        mRefMessages.removeEventListener(mMessagesListener)
         mRefMessages.limitToLast(mCountMessages).addChildEventListener(mMessagesListener)
-        mListListeners.add(mMessagesListener)
     }
 
     private fun initToolbar() {
@@ -133,14 +212,33 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
+            && resultCode == Activity.RESULT_OK && data != null
+        ) {
+            val uri = CropImage.getActivityResult(data).uri
+            val messageKey = getMessageKey(contact.id)
+            val path = REF_STORAGE_ROOT_MESSAGES_IMAGE.child(messageKey)
+
+            putImageToStorage(uri, path) {
+                getUrlFromStorage(path) {
+                    sendMessageAsImage(contact.id, it, messageKey)
+                    mSmoothScrollToPosition = true
+                }
+            }
+        }
+    }
+
     override fun onPause() {
         super.onPause()
         mToolBarInfo.visibility = View.GONE
         mRefUsers.removeEventListener(mListenerInfoToolbar)
+        mRefMessages.removeEventListener(mMessagesListener)
+    }
 
-        mListListeners.forEach {
-            mRefMessages.removeEventListener(it)
-        }
-        println()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mAppVoiceRecorder.releaseRecorder()
     }
 }
