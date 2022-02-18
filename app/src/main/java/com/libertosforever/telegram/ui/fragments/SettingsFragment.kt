@@ -91,7 +91,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             val uri = CropImage.getActivityResult(data).uri
             val path = REF_STORAGE_ROOT_PROFILE_IMAGE.child(CURRENT_UID)
 
-            putImageToStorage(uri, path) {
+            putFileToStorage(uri, path) {
                 getUrlFromStorage(path) {
                     putUrlToDatabase(it) {
                         mBinding.settingsUserPhoto.downloadAndSetImage(it)
