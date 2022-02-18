@@ -22,6 +22,7 @@ import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentSingleChatBinding
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
+import com.libertosforever.telegram.ui.fragments.message_recycle_view.views.AppViewFactory
 import com.libertosforever.telegram.ui.fragments.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
@@ -145,11 +146,11 @@ class SingleChatFragment(private val contact: CommonModel) :
             val message = it.getCommonModel()
 
             if (mSmoothScrollToPosition) {
-                mAdapter.addItemToBottom(message) {
+                mAdapter.addItemToBottom(AppViewFactory.getView(message)) {
                     mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
                 }
             } else {
-                mAdapter.addItemToTop(message) {
+                mAdapter.addItemToTop(AppViewFactory.getView(message)) {
                     mSwipeRefreshLayout.isRefreshing = false
                 }
             }
