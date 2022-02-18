@@ -2,6 +2,7 @@ package com.libertosforever.telegram.ui.fragments.message_recycle_view.views
 
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.utilits.TYPE_MESSAGE_IMAGE
+import com.libertosforever.telegram.utilits.TYPE_MESSAGE_VOICE
 
 class AppViewFactory {
     companion object {
@@ -14,6 +15,14 @@ class AppViewFactory {
                     message.timeStamp.toString(),
                     message.fileUrl
                 )
+
+                TYPE_MESSAGE_VOICE -> ViewVoiceMessage(
+                    message.id,
+                    message.from,
+                    message.timeStamp.toString(),
+                    message.fileUrl
+                )
+
                 else -> ViewTextMessage(
                     message.id,
                     message.from,
