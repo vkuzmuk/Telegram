@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.fragments.message_recycle_view.views
+package com.libertosforever.telegram.ui.message_recycle_view.views
 
 interface MessageView {
     val id: String

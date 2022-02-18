@@ -1,10 +1,10 @@
-package com.libertosforever.telegram.ui.fragments.message_recycle_view.view_holder
+package com.libertosforever.telegram.ui.message_recycle_view.view_holder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.libertosforever.telegram.R
-import com.libertosforever.telegram.ui.fragments.message_recycle_view.views.MessageView
+import com.libertosforever.telegram.ui.message_recycle_view.views.MessageView
 
 class AppHolderFactory {
     companion object {

@@ -10,8 +10,8 @@ import com.libertosforever.telegram.database.AUTH
 import com.libertosforever.telegram.database.initFirebase
 import com.libertosforever.telegram.database.initUser
 import com.libertosforever.telegram.databinding.ActivityMainBinding
-import com.libertosforever.telegram.ui.fragments.MainFragment
-import com.libertosforever.telegram.ui.fragments.register.EnterPhoneNumberFragment
+import com.libertosforever.telegram.ui.screens.MainFragment
+import com.libertosforever.telegram.ui.screens.register.EnterPhoneNumberFragment
 import com.libertosforever.telegram.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

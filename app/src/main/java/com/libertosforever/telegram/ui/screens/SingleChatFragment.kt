@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.fragments
+package com.libertosforever.telegram.ui.screens
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -22,8 +22,8 @@ import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentSingleChatBinding
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
-import com.libertosforever.telegram.ui.fragments.message_recycle_view.views.AppViewFactory
-import com.libertosforever.telegram.ui.fragments.single_chat.SingleChatAdapter
+import com.libertosforever.telegram.ui.message_recycle_view.views.AppViewFactory
+import com.libertosforever.telegram.ui.screens.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.coroutines.CoroutineScope
@@ -236,5 +236,6 @@ class SingleChatFragment(private val contact: CommonModel) :
     override fun onDestroyView() {
         super.onDestroyView()
         mAppVoiceRecorder.releaseRecorder()
+        mAdapter.onDestroy()
     }
 }

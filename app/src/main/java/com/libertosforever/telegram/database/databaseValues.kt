@@ -17,6 +17,7 @@ lateinit var REF_DATABASE_ROOT_MESSAGES: DatabaseReference
 
 lateinit var REF_STORAGE_ROOT_PROFILE_IMAGE: StorageReference
 lateinit var REF_STORAGE_ROOT_FILES: StorageReference
+lateinit var REF_STORAGE_ROOT: StorageReference
 
 const val TYPE_TEXT = "text"
 

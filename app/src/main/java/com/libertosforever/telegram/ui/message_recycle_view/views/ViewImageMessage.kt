@@ -1,6 +1,6 @@
-package com.libertosforever.telegram.ui.fragments.message_recycle_view.views
+package com.libertosforever.telegram.ui.message_recycle_view.views
 
-data class ViewVoiceMessage(
+data class ViewImageMessage(
     override val id: String,
     override val from: String,
     override val timeStamp: String,
@@ -9,7 +9,7 @@ data class ViewVoiceMessage(
 ) : MessageView {
 
     override fun getTypeView(): Int {
-        return MessageView.MESSAGE_VOICE
+        return MessageView.MESSAGE_IMAGE
     }
 
     override fun equals(other: Any?): Boolean {

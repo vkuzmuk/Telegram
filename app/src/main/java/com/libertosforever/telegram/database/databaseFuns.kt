@@ -14,6 +14,7 @@ import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.utilits.APP_ACTIVITY
 import com.libertosforever.telegram.utilits.AppValueEventListener
 import com.libertosforever.telegram.utilits.showToast
+import java.io.File
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
@@ -28,6 +29,7 @@ fun initFirebase() {
 
     REF_STORAGE_ROOT_PROFILE_IMAGE = Firebase.storage.getReference(FOLDER_PROFILE_IMAGE)
     REF_STORAGE_ROOT_FILES = Firebase.storage.getReference(FOLDER_FILES)
+    REF_STORAGE_ROOT = Firebase.storage.reference
 
     USER = UserModel()
     CURRENT_UID = AUTH.currentUser?.uid.toString()
@@ -202,4 +204,11 @@ fun uploadFileToStorage(uri: Uri, messageKey: String, receivedId: String, typeMe
             sendMessageAsFile(receivedId, it, messageKey, typeMessage)
         }
     }
+}
+
+fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
+    val path = REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl)
+    path.getFile(mFile)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }

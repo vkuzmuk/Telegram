@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.fragments
+package com.libertosforever.telegram.ui.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater

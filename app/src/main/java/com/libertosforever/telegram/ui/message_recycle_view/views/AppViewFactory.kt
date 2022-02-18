@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.fragments.message_recycle_view.views
+package com.libertosforever.telegram.ui.message_recycle_view.views
 
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.utilits.TYPE_MESSAGE_IMAGE
