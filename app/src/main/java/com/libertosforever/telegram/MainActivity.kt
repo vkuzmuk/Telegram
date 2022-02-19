@@ -2,15 +2,15 @@ package com.libertosforever.telegram
 
 import AppDrawer
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.libertosforever.telegram.database.AUTH
 import com.libertosforever.telegram.database.initFirebase
 import com.libertosforever.telegram.database.initUser
 import com.libertosforever.telegram.databinding.ActivityMainBinding
-import com.libertosforever.telegram.ui.screens.MainFragment
+import com.libertosforever.telegram.ui.screens.main_list.MainListFragment
 import com.libertosforever.telegram.ui.screens.register.EnterPhoneNumberFragment
 import com.libertosforever.telegram.utilits.*
 import kotlinx.coroutines.CoroutineScope
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(mToolBar)
         if (AUTH.currentUser != null) {
             mAppDrawer.create()
-            replaceFragment(MainFragment())
+            replaceFragment(MainListFragment())
         } else {
             replaceFragment(EnterPhoneNumberFragment())
         }
