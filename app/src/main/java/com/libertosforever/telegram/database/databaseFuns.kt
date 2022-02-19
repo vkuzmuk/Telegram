@@ -21,6 +21,7 @@ fun initFirebase() {
     val database =
         Firebase.database("https://telegram-5b102-default-rtdb.europe-west1.firebasedatabase.app")
 
+    REF_DATABASE_ROOT = database.reference
     REF_DATABASE_ROOT_USERS = database.getReference(NODE_USERS)
     REF_DATABASE_ROOT_USERNAMES = database.getReference(NODE_USERNAMES)
     REF_DATABASE_ROOT_PHONES = database.getReference(NODE_PHONES)
@@ -218,4 +219,28 @@ fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
     path.getFile(mFile)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun saveToMainList(id: String, type: String) {
+    val refUsers = "$NODE_MAIN_LIST/$CURRENT_UID/$id"
+    val refReceived = "$NODE_MAIN_LIST/$id/$CURRENT_UID"
+
+    val mapUser = hashMapOf<String, Any>()
+    val mapReceived = hashMapOf<String, Any>()
+
+    mapUser[CHILD_ID] = id
+    mapUser[CHILD_TYPE] = type
+
+    mapReceived[CHILD_ID] = id
+    mapReceived[CHILD_TYPE] = type
+
+    val commonMap = hashMapOf<String, Any>()
+    commonMap[refUsers] = mapUser
+    commonMap[refReceived] = mapReceived
+
+    REF_DATABASE_ROOT.updateChildren(commonMap)
+        .addOnFailureListener { showToast(it.message.toString()) }
+
+
+
 }

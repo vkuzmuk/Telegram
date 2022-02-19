@@ -9,6 +9,7 @@ lateinit var AUTH: FirebaseAuth
 lateinit var USER: UserModel
 lateinit var CURRENT_UID: String
 
+lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var REF_DATABASE_ROOT_USERS: DatabaseReference
 lateinit var REF_DATABASE_ROOT_USERNAMES: DatabaseReference
 lateinit var REF_DATABASE_ROOT_PHONES: DatabaseReference
@@ -26,6 +27,7 @@ const val NODE_USERNAMES = "usernames"
 const val NODE_PHONES = "phones"
 const val NODE_PHONES_CONTACTS = "phones_contacts"
 const val NODE_MESSAGES = "messages"
+const val NODE_MAIN_LIST = "main_list"
 
 const val FOLDER_PROFILE_IMAGE = "profile_image"
 const val FOLDER_FILES = "messages_files"
