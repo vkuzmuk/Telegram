@@ -66,8 +66,7 @@ class SingleChatFragment(private val contact: CommonModel) :
         toolBarImage = APP_ACTIVITY.findViewById(R.id.toolbar_chat_image)
         toolbarChatFullname = APP_ACTIVITY.findViewById(R.id.toolbar_chat_fullname)
         toolbarChatStatus = APP_ACTIVITY.findViewById(R.id.toolbar_chat_status)
-        btnAttachFile = APP_ACTIVITY.findViewById(R.id.btn_attach_file)
-        btnAttachImage = APP_ACTIVITY.findViewById(R.id.btn_attach_image)
+
     }
 
     override fun onCreateView(
@@ -126,11 +125,7 @@ class SingleChatFragment(private val contact: CommonModel) :
                             mBinding.chatBtnVoice.colorFilter = null
                             mAppVoiceRecorder.stopRecord() { file, messageKey ->
                                 uploadFileToStorage(
-                                    Uri.fromFile(file),
-                                    messageKey,
-                                    contact.id,
-                                    TYPE_MESSAGE_VOICE
-                                )
+                                    Uri.fromFile(file), messageKey, contact.id, TYPE_MESSAGE_VOICE)
                                 mSmoothScrollToPosition = true
                             }
                         }
@@ -141,6 +136,8 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
 
     private fun attach() {
+        btnAttachFile = APP_ACTIVITY.findViewById(R.id.btn_attach_file)
+        btnAttachImage = APP_ACTIVITY.findViewById(R.id.btn_attach_image)
         mBottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         btnAttachFile.setOnClickListener { attachFile() }
         btnAttachImage.setOnClickListener { attachImage() }
@@ -257,7 +254,8 @@ class SingleChatFragment(private val contact: CommonModel) :
                 PICK_FILE_REQUEST_CODE -> {
                     val uri = data.data
                     val messageKey = getMessageKey(contact.id)
-                    uri?.let { uploadFileToStorage(it, messageKey, contact.id, TYPE_MESSAGE_FILE) }
+                    val filename = getFileNameFromUrl(uri!!)
+                    uploadFileToStorage(uri, messageKey, contact.id, TYPE_MESSAGE_FILE, filename)
                     mSmoothScrollToPosition = true
                 }
             }

@@ -3,7 +3,9 @@ package com.libertosforever.telegram.utilits
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.provider.ContactsContract
+import android.provider.OpenableColumns
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
@@ -21,17 +23,17 @@ fun showToast(message: String) {
 }
 
 fun restartActivity() {
-    val intent = Intent(APP_ACTIVITY, MainActivity :: class.java)
+    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
     APP_ACTIVITY.startActivity(intent)
     APP_ACTIVITY.finish()
 }
 
 fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
-        APP_ACTIVITY.supportFragmentManager   // Implement later on the activities back stack
-            .beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.data_container, fragment)
-            .commit()
+    APP_ACTIVITY.supportFragmentManager   // Implement later on the activities back stack
+        .beginTransaction()
+        .addToBackStack(null)
+        .replace(R.id.data_container, fragment)
+        .commit()
 }
 
 fun hideKeyboard() {
@@ -62,8 +64,10 @@ fun initContacts() {
         )
         cursor?.let {
             while (it.moveToNext()) {
-                val fullname = it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                val fullname =
+                    it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
+                val phone =
+                    it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                 val newModel = CommonModel()
                 newModel.fullname = fullname
                 newModel.phone = phone.replace(Regex("[\\s,-]"), "")
@@ -80,3 +84,30 @@ fun String.asTime(): String {
     val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
     return timeFormat.format(time)
 }
+
+@SuppressLint("Range")
+fun getFileNameFromUrl(uri: Uri): String {
+    var result = ""
+    val cursor = APP_ACTIVITY.contentResolver.query(uri, null, null, null, null)
+    try {
+        if (cursor != null && cursor.moveToFirst()) {
+            result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+        }
+    } catch (e: Exception) {
+        showToast(e.message.toString())
+    } finally {
+        cursor?.close()
+        return result
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
