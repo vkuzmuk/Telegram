@@ -1,14 +1,18 @@
-package com.libertosforever.telegram.ui.screens
+package com.libertosforever.telegram.ui.screens.settings
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.database.CURRENT_UID
 import com.libertosforever.telegram.database.REF_DATABASE_ROOT_USERNAMES
 import com.libertosforever.telegram.database.USER
 import com.libertosforever.telegram.database.updateCurrentUsername
 import com.libertosforever.telegram.databinding.FragmentChangeUserNameBinding
-import com.libertosforever.telegram.utilits.*
+import com.libertosforever.telegram.ui.screens.BaseChangeFragment
+import com.libertosforever.telegram.utilits.AppValueEventListener
+import com.libertosforever.telegram.utilits.showToast
 import java.util.*
 
 class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_name) {

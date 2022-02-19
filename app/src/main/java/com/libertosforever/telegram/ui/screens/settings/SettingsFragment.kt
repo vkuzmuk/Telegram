@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.screens
+package com.libertosforever.telegram.ui.screens.settings
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -8,6 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentSettingsBinding
+import com.libertosforever.telegram.ui.screens.BaseFragment
 import com.libertosforever.telegram.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

@@ -1,11 +1,15 @@
-package com.libertosforever.telegram.ui.screens
+package com.libertosforever.telegram.ui.screens.settings
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.libertosforever.telegram.R
-import com.libertosforever.telegram.database.*
+import com.libertosforever.telegram.database.USER
+import com.libertosforever.telegram.database.setNameToDatabase
 import com.libertosforever.telegram.databinding.FragmentChangeNameBinding
-import com.libertosforever.telegram.utilits.*
+import com.libertosforever.telegram.ui.screens.BaseChangeFragment
+import com.libertosforever.telegram.utilits.showToast
 
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
     lateinit var mBinding: FragmentChangeNameBinding
