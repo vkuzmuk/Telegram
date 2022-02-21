@@ -10,7 +10,7 @@ import com.libertosforever.telegram.database.REF_DATABASE_ROOT_USERNAMES
 import com.libertosforever.telegram.database.USER
 import com.libertosforever.telegram.database.updateCurrentUsername
 import com.libertosforever.telegram.databinding.FragmentChangeUserNameBinding
-import com.libertosforever.telegram.ui.screens.BaseChangeFragment
+import com.libertosforever.telegram.ui.screens.base.BaseChangeFragment
 import com.libertosforever.telegram.utilits.AppValueEventListener
 import com.libertosforever.telegram.utilits.showToast
 import java.util.*

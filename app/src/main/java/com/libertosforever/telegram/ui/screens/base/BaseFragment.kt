@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.screens
+package com.libertosforever.telegram.ui.screens.base
 
 import androidx.fragment.app.Fragment
 import com.libertosforever.telegram.utilits.APP_ACTIVITY

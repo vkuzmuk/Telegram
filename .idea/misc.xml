@@ -21,8 +21,11 @@
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ripple_effect.xml" value="0.2526041666666667" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/activity_register.xml" value="0.23645833333333333" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/add_contacts.xml" value="0.4" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/add_contacts_item.xml" value="0.264" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/choice_upload.xml" value="0.23645833333333333" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/contact_item.xml" value="0.264" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_add_contacts.xml" value="0.264" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_change_bio.xml" value="0.1" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_change_name.xml" value="0.264" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/layout/fragment_change_user_name.xml" value="0.23645833333333333" />

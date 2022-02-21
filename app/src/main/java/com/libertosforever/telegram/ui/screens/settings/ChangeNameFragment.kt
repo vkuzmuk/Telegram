@@ -8,7 +8,7 @@ import com.libertosforever.telegram.R
 import com.libertosforever.telegram.database.USER
 import com.libertosforever.telegram.database.setNameToDatabase
 import com.libertosforever.telegram.databinding.FragmentChangeNameBinding
-import com.libertosforever.telegram.ui.screens.BaseChangeFragment
+import com.libertosforever.telegram.ui.screens.base.BaseChangeFragment
 import com.libertosforever.telegram.utilits.showToast
 
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {

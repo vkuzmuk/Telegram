@@ -8,7 +8,7 @@ import com.libertosforever.telegram.R
 import com.libertosforever.telegram.database.USER
 import com.libertosforever.telegram.database.setBioToDatabase
 import com.libertosforever.telegram.databinding.FragmentChangeBioBinding
-import com.libertosforever.telegram.ui.screens.BaseChangeFragment
+import com.libertosforever.telegram.ui.screens.base.BaseChangeFragment
 
 class ChangeBioFragment : BaseChangeFragment(R.layout.fragment_change_bio) {
     private lateinit var mBinding: FragmentChangeBioBinding

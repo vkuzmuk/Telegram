@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.databinding.FragmentSettingsBinding
-import com.libertosforever.telegram.ui.screens.BaseFragment
+import com.libertosforever.telegram.ui.screens.base.BaseFragment
 import com.libertosforever.telegram.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView

@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.screens
+package com.libertosforever.telegram.ui.screens.base
 
 import android.view.Menu
 import android.view.MenuInflater

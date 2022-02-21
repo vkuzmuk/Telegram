@@ -20,6 +20,7 @@ import com.libertosforever.telegram.databinding.FragmentSingleChatBinding
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.ui.message_recycle_view.views.AppViewFactory
+import com.libertosforever.telegram.ui.screens.base.BaseFragment
 import com.libertosforever.telegram.ui.screens.main_list.MainListFragment
 import com.libertosforever.telegram.ui.screens.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
