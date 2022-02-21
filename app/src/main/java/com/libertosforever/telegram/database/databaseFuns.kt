@@ -173,7 +173,13 @@ fun setNameToDatabase(fullName: String) {
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun sendMessageAsFile(receivingUserId: String, fileUrl: String, messageKey: String, typeMessage: String, filename: String) {
+fun sendMessageAsFile(
+    receivingUserId: String,
+    fileUrl: String,
+    messageKey: String,
+    typeMessage: String,
+    filename: String
+) {
     val refDialogUser = "$CURRENT_UID/$receivingUserId"
     val refDialogReceivingUser = "$receivingUserId/$CURRENT_UID"
 
@@ -198,7 +204,13 @@ fun getMessageKey(id: String) = REF_DATABASE_ROOT_MESSAGES
     .child(CURRENT_UID)
     .child(id).push().key.toString()
 
-fun uploadFileToStorage(uri: Uri, messageKey: String, receivedId: String, typeMessage: String, filename: String = "") {
+fun uploadFileToStorage(
+    uri: Uri,
+    messageKey: String,
+    receivedId: String,
+    typeMessage: String,
+    filename: String = ""
+) {
     val path = REF_STORAGE_ROOT_FILES.child(messageKey)
 
     putFileToStorage(uri, path) {
@@ -240,7 +252,30 @@ fun saveToMainList(id: String, type: String) {
 
     REF_DATABASE_ROOT.updateChildren(commonMap)
         .addOnFailureListener { showToast(it.message.toString()) }
+}
 
+fun deleteChat(id: String, function: () -> Unit) {
+    REF_DATABASE_ROOT
+        .child(NODE_MAIN_LIST)
+        .child(CURRENT_UID).child(id)
+        .removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener { function() }
+}
 
+fun clearChat(id: String, function: () -> Unit) {
+    REF_DATABASE_ROOT_MESSAGES
+        .child(CURRENT_UID)
+        .child(id)
+        .removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            REF_DATABASE_ROOT_MESSAGES
+                .child(id)
+                .child(CURRENT_UID)
+                .removeValue()
+                .addOnSuccessListener { function() }
+        }
+        .addOnFailureListener { showToast(it.message.toString()) }
 
 }

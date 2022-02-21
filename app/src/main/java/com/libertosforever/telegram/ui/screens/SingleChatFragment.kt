@@ -20,6 +20,7 @@ import com.libertosforever.telegram.databinding.FragmentSingleChatBinding
 import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.ui.message_recycle_view.views.AppViewFactory
+import com.libertosforever.telegram.ui.screens.main_list.MainListFragment
 import com.libertosforever.telegram.ui.screens.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
@@ -280,7 +281,14 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-
+            R.id.menu_clear_chat -> clearChat(contact.id) {
+                showToast("Чат очищен")
+                replaceFragment(MainListFragment())
+            }
+            R.id.menu_delete_chat -> deleteChat(contact.id) {
+                showToast("Чат удален")
+                replaceFragment(MainListFragment())
+            }
         }
         return true
     }
