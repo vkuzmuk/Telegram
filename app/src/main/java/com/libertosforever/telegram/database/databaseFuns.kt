@@ -84,7 +84,7 @@ fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
                         REF_DATABASE_ROOT_PHONES_CONTACTS
                             .child(CURRENT_UID)
                             .child(snapshot.value.toString())
-                            .child(CHILD_FULL_NAME)
+                            .child(CHILD_FULLNAME)
                             .setValue(contact.fullname)
                             .addOnFailureListener { showToast(it.message.toString()) }
                     }
@@ -163,7 +163,7 @@ fun setBioToDatabase(newBio: String) {
 fun setNameToDatabase(fullName: String) {
     REF_DATABASE_ROOT_USERS
         .child(CURRENT_UID)
-        .child(CHILD_FULL_NAME)
+        .child(CHILD_FULLNAME)
         .setValue(fullName)
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
@@ -278,4 +278,38 @@ fun clearChat(id: String, function: () -> Unit) {
         }
         .addOnFailureListener { showToast(it.message.toString()) }
 
+}
+
+fun createGroupToDatabase(
+    nameGroup: String,
+    mUri: Uri,
+    listContacts: List<CommonModel>,
+    function: () -> Unit
+) {
+    val keyGroup = REF_DATABASE_ROOT.child(NODE_GROUPS).push().key.toString()
+    val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
+    val pathStorage = REF_STORAGE_ROOT.child(FOLDER_GROUPS_IMAGE).child(keyGroup)
+
+    val mapData = hashMapOf<String, Any>()
+    mapData[CHILD_ID] = keyGroup
+    mapData[CHILD_FULLNAME] = nameGroup
+
+    val mapMembers = hashMapOf<String, Any>()
+    listContacts.forEach {
+        mapMembers[it.id] = USER_MEMBER
+    }
+    mapMembers[CURRENT_UID] = USER_CREATOR
+    mapData[NODE_MEMBERS] = mapMembers
+
+    path.updateChildren(mapData)
+        .addOnSuccessListener {
+            function()
+            if (mUri != Uri.EMPTY) {
+                putFileToStorage(mUri, pathStorage) {
+                    getUrlFromStorage(pathStorage) {
+                        path.child(CHILD_FILE_URL).setValue(it)
+                    }
+                }
+            }
+        }.addOnFailureListener { showToast(it.message.toString()) }
 }
