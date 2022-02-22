@@ -1,4 +1,4 @@
-package com.libertosforever.telegram.ui.screens
+package com.libertosforever.telegram.ui.screens.single_chat
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -22,7 +22,6 @@ import com.libertosforever.telegram.models.UserModel
 import com.libertosforever.telegram.ui.message_recycle_view.views.AppViewFactory
 import com.libertosforever.telegram.ui.screens.base.BaseFragment
 import com.libertosforever.telegram.ui.screens.main_list.MainListFragment
-import com.libertosforever.telegram.ui.screens.single_chat.SingleChatAdapter
 import com.libertosforever.telegram.utilits.*
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.coroutines.CoroutineScope

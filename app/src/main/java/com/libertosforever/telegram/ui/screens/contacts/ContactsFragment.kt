@@ -16,8 +16,8 @@ import com.libertosforever.telegram.database.REF_DATABASE_ROOT_USERS
 import com.libertosforever.telegram.database.getCommonModel
 import com.libertosforever.telegram.databinding.FragmentContactsBinding
 import com.libertosforever.telegram.models.CommonModel
-import com.libertosforever.telegram.ui.screens.SingleChatFragment
 import com.libertosforever.telegram.ui.screens.base.BaseFragment
+import com.libertosforever.telegram.ui.screens.single_chat.SingleChatFragment
 import com.libertosforever.telegram.utilits.APP_ACTIVITY
 import com.libertosforever.telegram.utilits.AppValueEventListener
 import com.libertosforever.telegram.utilits.downloadAndSetImage

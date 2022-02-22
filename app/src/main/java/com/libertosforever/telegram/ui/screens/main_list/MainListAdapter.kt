@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.libertosforever.telegram.R
 import com.libertosforever.telegram.models.CommonModel
-import com.libertosforever.telegram.ui.screens.SingleChatFragment
+import com.libertosforever.telegram.ui.screens.single_chat.SingleChatFragment
 import com.libertosforever.telegram.utilits.downloadAndSetImage
 import com.libertosforever.telegram.utilits.replaceFragment
 import de.hdodenhof.circleimageview.CircleImageView
