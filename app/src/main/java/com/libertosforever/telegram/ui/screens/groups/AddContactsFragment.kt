@@ -13,6 +13,7 @@ import com.libertosforever.telegram.models.CommonModel
 import com.libertosforever.telegram.utilits.APP_ACTIVITY
 import com.libertosforever.telegram.utilits.AppValueEventListener
 import com.libertosforever.telegram.utilits.hideKeyboard
+import com.libertosforever.telegram.utilits.replaceFragment
 
 class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
     private lateinit var mRecyclerView: RecyclerView
@@ -39,9 +40,7 @@ class AddContactsFragment : Fragment(R.layout.fragment_add_contacts) {
         hideKeyboard()
         initRecyclerView()
         mBinding.addContactsBtnNext.setOnClickListener {
-            listContacts.forEach {
-                println(it.id)
-            }
+            replaceFragment(CreateGroupFragment(listContacts))
         }
     }
 
