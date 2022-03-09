@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable-v24/ripple_effect.xml" value="0.2526041666666667" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/bg_receive_message.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/bg_user_message.xml" value="0.1585" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_clean.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_confirm_change.xml" value="0.2526041666666667" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_delete.xml" value="0.1585" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_play_blue.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_play_green.xml" value="0.1585" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/drawable/ic_send.xml" value="0.1585" />
@@ -48,6 +50,7 @@
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/menu/settings_action_menu.xml" value="0.4" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/menu/settings_menu_confirm.xml" value="0.4" />
         <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/menu/single_chat_action_menu.xml" value="0.23645833333333333" />
+        <entry key="..\:/Coding/My Projects/Telegram/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16799999999999998" />
       </map>
     </option>
   </component>

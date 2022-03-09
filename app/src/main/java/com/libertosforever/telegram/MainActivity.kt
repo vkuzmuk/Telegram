@@ -29,13 +29,10 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this
         initFirebase()
         initUser {
-            CoroutineScope(Dispatchers.IO).launch {
-                initContacts()
-            }
+            CoroutineScope(Dispatchers.IO).launch { initContacts() }
             initFields()
             initFunc()
         }
-
     }
 
     private fun initFunc() {

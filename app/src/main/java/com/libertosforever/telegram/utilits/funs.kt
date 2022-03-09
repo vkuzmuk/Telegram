@@ -6,13 +6,14 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.OpenableColumns
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.libertosforever.telegram.MainActivity
 import com.libertosforever.telegram.R
-import com.libertosforever.telegram.database.updatePhonesToDatabase
+import com.libertosforever.telegram.database.*
 import com.libertosforever.telegram.models.CommonModel
 import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
@@ -51,6 +52,24 @@ fun ImageView.downloadAndSetImage(url: String) {
 
 }
 
+suspend fun getCurrentUserPhone(): String {
+    var result = "empty"
+    REF_DATABASE_ROOT
+        .child(NODE_USERS)
+        .child(CURRENT_UID)
+        .child(CHILD_PHONE)
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            result = it.value.toString()
+            Log.d("MyLog", result)
+        })
+    return result
+}
+
+/*val userPhone = CoroutineScope(Dispatchers.IO).launch { getCurrentUserPhone() }.toString()
+val phone = it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+if (userPhone != phone)*/
+
+
 @SuppressLint("Range")
 fun initContacts() {
     if (checkPermissions(READ_CONTACTS)) {
@@ -66,11 +85,11 @@ fun initContacts() {
             while (it.moveToNext()) {
                 val fullname =
                     it.getString(it.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phone =
+                val phoneContacts =
                     it.getString(it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
                 val newModel = CommonModel()
                 newModel.fullname = fullname
-                newModel.phone = phone.replace(Regex("[\\s,-]"), "")
+                newModel.phone = phoneContacts.replace(Regex("[\\s,-]"), "")
                 arrayContacts.add(newModel)
             }
         }
@@ -102,7 +121,7 @@ fun getFileNameFromUrl(uri: Uri): String {
 }
 
 fun getPlurals(count: Int) = APP_ACTIVITY.resources.getQuantityString(
-    R.plurals.count_members,count, count
+    R.plurals.count_members, count, count
 )
 
 
